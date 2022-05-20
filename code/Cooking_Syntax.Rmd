@@ -1,0 +1,46 @@
+---
+title: "Cooking Optimatisation"
+author: "Nick van Doormaal"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache.lazy = FALSE, warning = FALSE, 
+                      message = FALSE, cache = TRUE, dpi = 180,
+                      fig.width = 8, fig.height = 5)
+
+library(tidyverse)
+library(here)
+library(googlesheets4)
+
+```
+
+
+## Read data
+```{r read-google-data}
+Product_list <- read_sheet("https://docs.google.com/spreadsheets/d/1HRdX1NWywVDEZlrX1zpSjosPm3GHpG48fr5Qa_KiQF4/edit#gid=0")
+```
+
+
+## Data cleaning
+```{r  data-cleaning}
+Product_list %>% 
+  select(-Category)
+```
+
+## Read recipe data
+```{r}
+Recipe_data <- read_csv(
+  here("data", "Recipes_csv.csv")
+)
+```
+
+
+## Select ingredients column
+```{r}
+Recipe_data %>% 
+  select(starts_with(c("Ingredient", "Amount")))
+```
+
+
